@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Palindrome</title>
+	<script>
+		var count = 2;
+		var coincidence = 0;
+
+		function getPalindrome () {
+			var bigPal_length = 0,
+	  			bigPal = '';
+			var str = document.getElementById("myText").value;
+			for (var i = 0; i < str.length; i++) {
+				var subMain = str.substr(i, str.length);
+				for (var j = subMain.length; j >= 0; j--) {
+					var subInside = subMain.substr(0, j);
+					if (subInside.length < 2) {
+						continue;
+					}
+					if (isPalindrome(subInside)) {
+						if (subInside.length > bigPal_length) {
+							bigPal_length = subInside.length;
+							bigPal = subInside;
+							document.querySelector(".boxLargest").innerHTML = "<b>" + "1. " + bigPal + "</b>" + "<br />";
+						}
+						else if (subInside != bigPal) {
+							document.querySelector(".box").innerHTML += count + ". " + subInside + "<br />";
+							count++;
+						}
+					}
+				}
+			}
+			if (coincidence < 1) {
+				document.querySelector(".boxLargest").innerHTML = "Palindrome is not found";
+			}
+		}
+		function isPalindrome (str) {
+			var revPal = str.split("").reverse().join("");
+			if (str === revPal) {
+				coincidence++;
+				return true;
+			}
+		}
+	</script>
+</head>
+<body>
+<input type="text" id="myText">
+<button onclick="getPalindrome()">Test</button>
+<div class="boxLargest"></div>
+<div class="box"></div>
+</body>
+</html>
